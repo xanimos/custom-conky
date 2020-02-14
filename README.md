@@ -1,0 +1,1 @@
+/home/xanimos/Coding/custom-conky/.conky/conky-xanimos/README.md

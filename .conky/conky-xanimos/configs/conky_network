@@ -1,0 +1,59 @@
+conky.config = {
+-- ------------------------- Windows Settings
+	own_window = true,
+	own_window_type = 'normal',
+	own_window_transparent = false,
+	own_window_hints = 'undecorated,sticky,below,skip_taskbar,skip_pager',
+	own_window_argb_visual = true,
+	own_window_argb_value = 0,
+
+	double_buffer = true,
+
+-- ------------------------- Position
+	alignment = 'bottom_right',
+
+	minimum_width = 210,
+	minimum_height = 165,
+	maximum_width = 210,
+	gap_x = 5,
+	gap_y = 50,
+
+-- ------------------------- Font
+	use_xft = true,
+	xftalpha = 0.8,
+	override_utf8_locale = true,
+
+	draw_shades = false,
+
+	draw_borders = false,
+	draw_outline = false,
+	draw_graph_borders = false,
+
+	font = 'Monofur:bold:size=8',
+
+-- ------------------------- Color
+	default_color = 'DCDCDC',
+	color0 = '24D9D9',
+
+
+-- ------------------------- OTHER
+	update_interval = 1,
+};
+
+conky.text = [[
+${if_existing /proc/net/route enp8s0}${voffset 25}${GOTO 50}${font}Network
+${GOTO 50}${font}Public: ${color0}${font Monofur:size=8}${texeci 36000 wget -qO - http://ipecho.net/plain | tail}${color}
+${GOTO 20}${upspeedgraph enp8s0 15,170 0EA794 DCDCDC}
+${GOTO 20}${downspeedgraph enp8s0 15,170 0EA794 DCDCDC}
+${voffset 15}${GOTO 50}${font}Recieve: ${font Monofur:size=8}${downspeed enp8s0}${GOTO 200}${font}Send: ${font Monofur:size=8}${upspeed enp8s0}
+${image ~/.conky/conky-xanimos/img/networkhigh.png -p 0,5}${else}${if_existing /proc/net/route wlp2s0}${voffset 8}${GOTO 50}${font Monofur:bold:size=18}Network${font}
+${voffset 5}${GOTO 50}${font}Public: ${color0}${font Monofur:size=8}${texeci 36000 wget -qO - http://ipecho.net/plain | tail}${color}
+${voffset 5}${GOTO 50}${font}Local: ${color0}${font Monofur:size=8}${addrs wlp2s0}${color}
+${voffset 5}${GOTO 50}${font}Up: ${font Monofur:size=8}${upspeed wlp2s0}
+${voffset -3}${GOTO 50}${upspeedgraph wlp2s0 15,150 0EA794 0EA794 5000}
+${voffset 2}${GOTO 50}${font}Down: ${font Monofur:size=8}${downspeed wlp2s0}
+${voffset -3}${GOTO 50}${downspeedgraph wlp2s0 15,150 0EA794 0EA794 10000}
+${if_match "${wireless_link_qual_perc wlp2s0}"<"33"}${image ~/.conky/conky-xanimos/img/networklow.png -p 0,5 -s 45x45}${else}${if_match "${wireless_link_qual_perc wlp2s0}"<"66"}${image ~/.conky/conky-xanimos/img/networkmid.png -p 0,5}${else}${image ~/.conky/conky-xanimos/img/networkhigh.png -p 0,5}${endif}${endif}${else}${voffset 27}${GOTO 50}${font}Network
+${GOTO 50}${font}No connection
+${image ~/.conky/conky-xanimos/img/nonetwork.png -p 0,5}${endif}${endif}
+]];

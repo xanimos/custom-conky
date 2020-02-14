@@ -1,0 +1,37 @@
+conky.config = {
+-- ------------------------- Windows Settings
+	own_window = true,
+	own_window_type = 'normal',
+	own_window_transparent = false,
+	own_window_hints = 'undecorated,sticky,below,skip_taskbar,skip_pager',
+	own_window_argb_visual = true,
+	own_window_argb_value = 190,
+
+	double_buffer = true,	
+	background = true,
+
+-- ------------------------- Position
+	alignment = 'bottom_right',
+
+	minimum_height = 165,
+	minimum_width = 1125,
+	gap_x = 0,
+	gap_y = 50,
+
+	border_inner_margin = 0,
+	border_outer_margin = 0,
+
+-- ------------------------- Font
+	draw_shades = false,
+	draw_outline = false,
+	draw_borders = false,
+
+-- ------------------------- Other
+	update_interval = 36000,
+
+};
+
+
+conky.text = [[
+${image ~/.conky/conky-xanimos/img/bg.png}
+]];

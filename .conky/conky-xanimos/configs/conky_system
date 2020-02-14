@@ -1,0 +1,69 @@
+conky.config = {
+-- ------------------------- Windows Settings
+	own_window = true,
+	own_window_type = 'normal',
+	own_window_transparent = false,
+	own_window_hints = 'undecorated,sticky,below,skip_taskbar,skip_pager',
+	own_window_argb_visual = true,
+	own_window_argb_value = 0,
+
+	double_buffer = true,
+	background = true,
+
+
+-- ------------------------- Position
+	alignment = 'bottom_right',
+
+	minimum_width = 215, 
+	minimum_height = 165,
+	maximum_width = 215,
+	gap_x = 670,
+	gap_y = 50,
+
+-- ------------------------- Font
+	use_xft = true,
+	xftalpha = 0.8,
+	override_utf8_locale = true,
+
+	draw_shades = false,
+	--default_shade_color = 'black',
+
+	draw_borders = false,
+	draw_outline = false,
+
+	font = 'Monofur:bold:size=8',
+	times_in_seconds = true,
+
+-- ------------------------ Colors
+	default_color = 'DCDCDC',
+	color0 = '24D9D9',
+	color1 = 'CCCCCC',
+--green
+	color2 = '24D912',
+--yellow
+	color3 = 'D9BC12',
+--red
+	color4 = 'F9120A',
+
+
+-- ------------------------- Templates
+
+	template0 = [[${if_match \1 \2<=\4}\3${else}${if_match \1 \2<=\6}\5${else}${if_match \1 \2>\6}\7${endif}${endif}${endif}]],
+	template1 = [[${template0 ${battery_percent BAT1} $color4 10 $color3 25 $color0}]],
+
+-- ------------------------- Other
+	update_interval = 1,
+};
+
+conky.text = [[
+${voffset 8}${GOTO 50}${font Monofur:bold:size=18}System${font}
+${voffset 10}${GOTO 50}${font}Uptime: ${font}${color1}${font Monofur:size=8}${format_time $uptime_short "\hh \mm"}${color}
+${voffset 10}${GOTO 50}${font}Battery: ${font Monofur:size=8}${color1}${if_match "${acpiacadapter ACAD}"!="off-line"}${image ~/.conky/conky-xanimos/img/units/timeleft.png -p 162,64 -s 18x18}Charging${alignr}(${template1}${battery_percent BAT1}%${color})${else}${image ~/.conky/conky-xanimos/img/units/timeleft.png -p 145,64 -s 18x18}${if_match ${battery_percent BAT1}<=10}${color4}${blink ${battery_percent BAT1}%}${else}${battery_percent BAT1}%${endif}${color}${if_empty ${battery_time BAT1}}${else}${alignr}(${template1}${format_time ${battery_time BAT1} "\hh \mm"}${color})${endif}${endif}
+${voffset 10}${font Monofur:size=8}${GOTO 50}${font}Processes: ${font Monofur:size=8}${color1}${processes}${color}
+${voffset 10}${GOTO 50}${font}Threads: ${font Monofur:size=8}${color1}${running_threads}${color}
+${voffset 10}${GOTO 50}${font}Connections: ${font Monofur:size=8}${color1}${tcp_portmon 1 65535 count}${color}
+${image ~/.conky/conky-xanimos/img/system.png -p 0,0}${image ~/.conky/conky-xanimos/img/units/uptime.png -p 19,42 -s 16x16}${image ~/.conky/conky-xanimos/img/units/batt.png -p 18,62 -s 20x20}${image ~/.conky/conky-xanimos/img/units/processes.png -p 18,86 -s 20x20}${image ~/.conky/conky-xanimos/img/units/freq.png -p 18,109 -s 20x20}${image ~/.conky/conky-xanimos/img/units/connections.png -p 19,133 -s 18x18}]];
+
+conky.text22 = [[
+${GOTO 50}${font}GPU: ${font Monofur:size=8}${nvidia temp}°C | ${font Monofur:size=8}${nvidia gpufreq}Mhz | ${execi 5 nvidia-settings -q [gpu:0]/UsedDedicatedGPUMemory -t}MiB
+]];
